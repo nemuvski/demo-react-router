@@ -12,10 +12,16 @@ import {
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import NavigationLinks from '~/components/NavigationLinks'
+import useLocationChange from '~/hooks/useLocationChange'
 
 const Navigation = () => {
   const buttonRef = useRef<null>(null)
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  // locationが変わった時にナビゲーションが開いていれば閉じる
+  useLocationChange(() => {
+    isOpen && onClose()
+  })
 
   return (
     <>
@@ -28,7 +34,7 @@ const Navigation = () => {
           <DrawerCloseButton />
           <DrawerHeader>Examples</DrawerHeader>
           <DrawerBody>
-            <NavigationLinks onClose={onClose} />
+            <NavigationLinks />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

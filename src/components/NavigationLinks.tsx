@@ -3,12 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Link, Stack } from '@chakra-ui/react'
 import { examplesMap } from '~/routes/examples'
 
-type Props = {
-  // Drawerを閉じる関数
-  onClose: () => void
-}
-
-const NavigationLinks: React.FC<Props> = ({ onClose }) => {
+const NavigationLinks = () => {
   const navigate = useNavigate()
   return (
     <Stack as='nav'>
@@ -22,8 +17,6 @@ const NavigationLinks: React.FC<Props> = ({ onClose }) => {
             // アンカー要素のデフォルトの挙動を無効
             event.preventDefault()
             navigate(`/examples/${path}`)
-            // Drawerを閉じる
-            onClose()
           }}
         >
           {title}
