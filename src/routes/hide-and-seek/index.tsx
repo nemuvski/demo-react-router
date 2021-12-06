@@ -1,7 +1,7 @@
-import React, { lazy } from 'react'
+import React, { lazy, LazyExoticComponent } from 'react'
 import { Navigate, RouteObject } from 'react-router-dom'
 
-export const hideAndSeekRouteMap = new Map<string, React.LazyExoticComponent<() => JSX.Element>>([
+export const hideAndSeekRouteMap = new Map<string, LazyExoticComponent<() => JSX.Element>>([
   ['child-a', lazy(() => import('~/routes/hide-and-seek/child-a'))],
   ['child-b', lazy(() => import('~/routes/hide-and-seek/child-b'))],
   ['child-c', lazy(() => import('~/routes/hide-and-seek/child-c'))],

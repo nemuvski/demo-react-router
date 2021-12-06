@@ -1,4 +1,4 @@
-import React, { lazy, useContext } from 'react'
+import React, { lazy, LazyExoticComponent, useContext } from 'react'
 import { Navigate, Outlet, RouteObject } from 'react-router-dom'
 import { MockAuthContext } from '~/context/MockAuthContext'
 
@@ -11,7 +11,7 @@ const ProtectedRoute = () => {
   return <Outlet />
 }
 
-export const protectedRouteMap = new Map<string, React.LazyExoticComponent<() => JSX.Element>>([
+export const protectedRouteMap = new Map<string, LazyExoticComponent<() => JSX.Element>>([
   ['child-a', lazy(() => import('~/routes/protections/child-a'))],
   ['child-b', lazy(() => import('~/routes/protections/child-b'))],
   ['child-c', lazy(() => import('~/routes/protections/child-c'))],
