@@ -1,22 +1,28 @@
-import React, { useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import {
   Box,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
+  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
+  FormControl,
+  FormLabel,
   IconButton,
+  Switch,
   useDisclosure,
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import NavigationLinks from '~/components/NavigationLinks'
 import useLocationChange from '~/hooks/useLocationChange'
+import { MockAuthContext } from '~/context/MockAuthContext'
 
 const Navigation = () => {
   const buttonRef = useRef<null>(null)
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isLogin, setLogin } = useContext(MockAuthContext)
 
   // locationが変わった時にナビゲーションが開いていれば閉じる
   useLocationChange(() => {
@@ -32,10 +38,23 @@ const Navigation = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Examples</DrawerHeader>
+          <DrawerHeader />
           <DrawerBody>
             <NavigationLinks />
           </DrawerBody>
+          <DrawerFooter>
+            <FormControl display='flex' alignItems='center'>
+              <FormLabel htmlFor='toggle-login-state' marginBottom={0}>
+                Toggle Login State
+              </FormLabel>
+              <Switch
+                id='toggle-login-state'
+                size='lg'
+                isChecked={isLogin}
+                onChange={(event) => setLogin(event.target.checked)}
+              />
+            </FormControl>
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>
