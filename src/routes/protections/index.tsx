@@ -11,14 +11,11 @@ const ProtectedRoute = () => {
   return <Outlet />
 }
 
-// リンク作成でも利用したいので、パスだけでなくリンクラベル（title）を持っておく
-export const protectedRouteMap = new Map<{ path: string; title: string }, React.LazyExoticComponent<() => JSX.Element>>(
-  [
-    [{ path: 'child-a', title: 'Child A' }, lazy(() => import('~/routes/protections/child-a'))],
-    [{ path: 'child-b', title: 'Child B' }, lazy(() => import('~/routes/protections/child-b'))],
-    [{ path: 'child-c', title: 'Child C' }, lazy(() => import('~/routes/protections/child-c'))],
-  ]
-)
+export const protectedRouteMap = new Map<string, React.LazyExoticComponent<() => JSX.Element>>([
+  ['child-a', lazy(() => import('~/routes/protections/child-a'))],
+  ['child-b', lazy(() => import('~/routes/protections/child-b'))],
+  ['child-c', lazy(() => import('~/routes/protections/child-c'))],
+])
 
 export const protectedRouteObject: RouteObject = {
   path: 'protections/',
@@ -29,7 +26,7 @@ export const protectedRouteObject: RouteObject = {
       index: true,
       element: <Navigate to='/' replace />,
     },
-    ...Array.from(protectedRouteMap, ([{ path }, ExoticComponent]) => ({
+    ...Array.from(protectedRouteMap, ([path, ExoticComponent]) => ({
       path,
       element: <ExoticComponent />,
     })),

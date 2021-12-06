@@ -1,14 +1,10 @@
 import React, { lazy } from 'react'
 import { Navigate, RouteObject } from 'react-router-dom'
 
-// リンク作成でも利用したいので、パスだけでなくリンクラベル（title）を持っておく
-export const hideAndSeekRouteMap = new Map<
-  { path: string; title: string },
-  React.LazyExoticComponent<() => JSX.Element>
->([
-  [{ path: 'child-a', title: 'Child A' }, lazy(() => import('~/routes/hide-and-seek/child-a'))],
-  [{ path: 'child-b', title: 'Child B' }, lazy(() => import('~/routes/hide-and-seek/child-b'))],
-  [{ path: 'child-c', title: 'Child C' }, lazy(() => import('~/routes/hide-and-seek/child-c'))],
+export const hideAndSeekRouteMap = new Map<string, React.LazyExoticComponent<() => JSX.Element>>([
+  ['child-a', lazy(() => import('~/routes/hide-and-seek/child-a'))],
+  ['child-b', lazy(() => import('~/routes/hide-and-seek/child-b'))],
+  ['child-c', lazy(() => import('~/routes/hide-and-seek/child-c'))],
 ])
 
 export const hideAndSeekRouteObject: RouteObject = {
@@ -18,7 +14,7 @@ export const hideAndSeekRouteObject: RouteObject = {
       index: true,
       element: <Navigate to='/' replace />,
     },
-    ...Array.from(hideAndSeekRouteMap, ([{ path }, ExoticComponent]) => ({
+    ...Array.from(hideAndSeekRouteMap, ([path, ExoticComponent]) => ({
       path,
       element: <ExoticComponent />,
     })),
