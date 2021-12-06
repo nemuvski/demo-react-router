@@ -4,6 +4,7 @@ import { MockAuthContext } from '~/context/MockAuthContext'
 
 const ProtectedRoute = () => {
   const { isLogin } = useContext(MockAuthContext)
+  // 未ログインであれば、アクセス禁止を表すコンテンツを表示する
   if (!isLogin) {
     return <>⛔</>
   }
